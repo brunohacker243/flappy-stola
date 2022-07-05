@@ -6,5 +6,5 @@ function setup() {
 function draw() {
   background(255,255,255);  
   drawSprites();
-  console.log("Hello World!");
+  console.log("uaau!");
 }
