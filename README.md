@@ -1,2 +1,2 @@
-# flappy-stola
+# flappy stola
 PISTOLA FLAPPY
