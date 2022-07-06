@@ -1,3 +1,9 @@
+/*
+  use
+    .\send
+  para enviar o projeto para o github
+*/
+
 function setup() {
   createCanvas(800,400);
   createSprite(400, 200, 50, 50);
