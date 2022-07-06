@@ -1,6 +1,7 @@
 /*
   use
-    .\send
+    .\send (nesse diretorio, por que tem o .bat, se for usar tem que copiar)
+    (apagar quando pronto)
   para enviar o projeto para o github
 */
 
