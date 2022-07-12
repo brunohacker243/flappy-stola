@@ -48,9 +48,13 @@ function draw() {
 
 function load() {
   alert("loading placeholder");
-  start = createButton("start");
+  start = createImg("./assets/start.png");
   start.position(700,600);
   start.mousePressed(startGame);
+  // como adicionar fontes em textos :)
+  // let title = createElement("h1","Flappy Stola");
+  // title.position(700,400);
+  // title.class("FlappyStolaTitle");
 }
 
 function startGame() {

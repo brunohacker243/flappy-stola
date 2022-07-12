@@ -5,3 +5,13 @@ html, body {
 canvas {
   display: block;
 }
+
+/* como adicionar fontes em textos :)
+   @font-face {
+    font-family: FlappyTitle;
+    src: url(./assets/titleFont.ttf);
+  }
+  
+  .FlappyStolaTitle {
+    font-family: FlappyTitle;
+  } */
