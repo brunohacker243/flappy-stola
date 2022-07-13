@@ -1,10 +1,11 @@
-let start, startImg;
+let start;
 let bird, birdAnimation;
 let START = 0, PLAY = 1, END = 2;
 let gameState = START;
 let gravity = 10;
 let jumpHeight = 5;
 let pipes = [];
+let title;
 
 /*
   use
@@ -14,7 +15,6 @@ let pipes = [];
 */
 
 function preload() {
-  startImg = loadImage("./assets/start.png");
   birdAnimation = loadAnimation("./assets/bird1.png","./assets/bird2.png","./assets/bird3.png","./assets/bird4.png");
 }
 
@@ -55,11 +55,14 @@ function load() {
   // let title = createElement("h1","Flappy Stola");
   // title.position(700,400);
   // title.class("FlappyStolaTitle");
+  title = createImg("./assets/flappystola.png");
+  title.position(300,200);
 }
 
 function startGame() {
   gameState = PLAY;
   start.remove();
+  title.remove();
 }
 
 function keyPressed() {
