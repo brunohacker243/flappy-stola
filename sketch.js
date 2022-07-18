@@ -8,6 +8,7 @@ let pipes = [];
 let title;
 let bullets = [];
 let canShoot = true;
+let spamAmount = 0;
 
 /*
   use
