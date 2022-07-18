@@ -55,9 +55,6 @@ function draw() {
     if(bird.y >= 800 || bird.y <= 0) {
       gameOver();
     }
-    document.body.onmousedown = () => {
-      summonBullets();
-    };
   }
   drawSprites();
 }
@@ -76,6 +73,9 @@ function load() {
 }
 
 function startGame() {
+  document.body.onmousedown = () => {
+    summonBullets();
+  };
   gameState = PLAY;
   start.remove();
   title.remove();
