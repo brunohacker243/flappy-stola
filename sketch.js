@@ -9,6 +9,7 @@ let title;
 let bullets = [];
 let canShoot = true;
 let spamAmount = 0;
+let clicktoofast;
 
 /*
   use
@@ -26,6 +27,8 @@ function setup() {
   bird = createSprite(200, 400, 50, 50);
   bird.addAnimation("bird",birdAnimation);
   bird.scale = 3;
+  clicktoofast = createImg("./assets/start.png");
+  clicktoofast.position(700,700);
   load();
 }
 
@@ -48,7 +51,6 @@ function draw() {
         }
       }
     }
-    console.log(bird.y);
     if(bird.y >= 800 || bird.y <= 0) {
       gameOver();
     }
@@ -103,7 +105,6 @@ function summonPipes() {
     // let pipe = createSprite(1600,0,70,height);
     for (let i = 0; i < 20; i++) {
       let pipe = createSprite(1600,i*50,70,50);
-      console.log(i*50);
       pipe.shapeColor = "lime";
       pipe.lifetime = 1600;
       pipes.push(pipe);
@@ -119,8 +120,9 @@ function summonPipes() {
 }
 
 function summonBullets() {
-  if(canShoot === true) {
+  if(canShoot === true && gameState === PLAY) {
     canShoot = false;
+    spamAmount = 0;
     let bullet = createSprite(bird.x,bird.y,20,10);
     bullet.shapeColor = "white";
     bullet.lifetime = 1600;
@@ -129,8 +131,14 @@ function summonBullets() {
     delete bullet;
     setTimeout(() => {
       canShoot = true;
-    }, 200)
+    }, 500)
+  } else {
+    spamAmount += 1;
+    if(spamAmount >= 3) {
+      
+    }
   }
+  console.log(spamAmount);
 }
 
 function gameOver() {
