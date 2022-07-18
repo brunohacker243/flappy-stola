@@ -27,8 +27,9 @@ function setup() {
   bird = createSprite(200, 400, 50, 50);
   bird.addAnimation("bird",birdAnimation);
   bird.scale = 3;
-  clicktoofast = createImg("./assets/start.png");
-  clicktoofast.position(700,800);
+  clicktoofast = createImg("./assets/clicktoofast.png");
+  clicktoofast.position(700,700);
+  clicktoofast.style("opacity",0);
   load();
 }
 
@@ -120,25 +121,26 @@ function summonPipes() {
 }
 
 function summonBullets() {
-  if(canShoot === true && gameState === PLAY) {
-    canShoot = false;
-    spamAmount = 0;
-    let bullet = createSprite(bird.x,bird.y,20,10);
-    bullet.shapeColor = "white";
-    bullet.lifetime = 1600;
-    bullet.velocityX = 10;
-    bullets.push(bullet);
-    delete bullet;
-    setTimeout(() => {
-      canShoot = true;
-    }, 500)
-  } else {
-    spamAmount += 1;
-    if(spamAmount >= 3) {
-
+  if(gameState === PLAY) {
+    if(canShoot === true) {
+      canShoot = false;
+      spamAmount = 0;
+      let bullet = createSprite(bird.x,bird.y,20,10);
+      bullet.shapeColor = "white";
+      bullet.lifetime = 1600;
+      bullet.velocityX = 10;
+      bullets.push(bullet);
+      delete bullet;
+      setTimeout(() => {
+        canShoot = true;
+      }, 250)
+    } else {
+      spamAmount += 1;
+      if(spamAmount >= 2) {
+        fadeImg(clicktoofast,"both",1,20,5000);
+      }
     }
-  }
-  console.log(spamAmount);
+}
 }
 
 function gameOver() {
@@ -147,4 +149,21 @@ function gameOver() {
   }
   gameState = END;
   alert("die placeholder");
+}
+
+function fadeImg(img,inOrOut,speed,timeFade,timeAlive) {
+  if (inOrOut === "both") {
+    for (let i = 0; i < 1 / speed * 10; i++) {
+      setTimeout(() => {
+        img.style("opacity",i / 10);
+      }, i * timeFade)
+    }
+    setTimeout(() => {
+      for (let i = 0; i < 1 / speed * 10 + 1; i++) {
+        setTimeout(() => {
+          img.style("opacity",1 - (i / 10));
+        }, i * timeFade)
+      }
+    }, timeAlive);
+  }
 }
