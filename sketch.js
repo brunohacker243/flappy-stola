@@ -6,6 +6,7 @@ let gravity = 10;
 let jumpHeight = 5;
 let pipes = [];
 let title;
+let bullet,bulletImg;
 
 /*
   use
@@ -38,10 +39,14 @@ function draw() {
           alert("die placeholder");
       }
     }
-    if(bird.y >= 800) {
+    console.log(bird.y);
+    if(bird.y >= 800 || bird.y <= 0) {
       gameState = END;
       alert("die placeholder");
     }
+    document.body.onmousedown = () => {
+      
+    };
   }
   drawSprites();
 }
@@ -86,13 +91,21 @@ function jump(sprite,times,height,timeDifference) {
 
 function summonPipes() {
   if(frameCount % 80 === 0) {
-    let height = random(0,400);
-    let pipe = createSprite(1600,0,70,height);
-    pipe.shapeColor = "lime";
-    pipes.push(pipe);
-    delete pipe;
-    pipe = createSprite(1600,800,70,height + 500);
-    pipe.shapeColor = "lime";
-    pipes.push(pipe);
+    // let height = random(0,400);
+    // let pipe = createSprite(1600,0,70,height);
+    for (let i = 0; i < 20; i++) {
+      let pipe = createSprite(1600,i*50,70,50);
+      console.log(i*50);
+      pipe.shapeColor = "lime";
+      pipe.lifetime = 1600;
+      pipes.push(pipe);
+      delete pipe;
+    }
+      // pipe.shapeColor = "lime";
+      // pipes.push(pipe);
+      // delete pipe;
+    // pipe = createSprite(1600,800,70,height + 500);
+    // pipe.shapeColor = "lime";
+    // pipes.push(pipe);
   }
 }
