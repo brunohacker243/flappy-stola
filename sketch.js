@@ -118,12 +118,18 @@ function summonPipes() {
 }
 
 function summonBullets() {
-  let bullet = createSprite(bird.x,bird.y,20,10);
-  bullet.shapeColor = "white";
-  bullet.lifetime = 1600;
-  bullet.velocityX = 10;
-  bullets.push(bullet);
-  delete bullet;
+  if(canShoot === true) {
+    canShoot = false;
+    let bullet = createSprite(bird.x,bird.y,20,10);
+    bullet.shapeColor = "white";
+    bullet.lifetime = 1600;
+    bullet.velocityX = 10;
+    bullets.push(bullet);
+    delete bullet;
+    setTimeout(() => {
+      canShoot = true;
+    }, 200)
+  }
 }
 
 function gameOver() {
