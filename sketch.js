@@ -28,7 +28,7 @@ function setup() {
   bird.addAnimation("bird",birdAnimation);
   bird.scale = 3;
   clicktoofast = createImg("./assets/start.png");
-  clicktoofast.position(700,700);
+  clicktoofast.position(700,800);
   load();
 }
 
@@ -135,7 +135,7 @@ function summonBullets() {
   } else {
     spamAmount += 1;
     if(spamAmount >= 3) {
-      
+
     }
   }
   console.log(spamAmount);
