@@ -1,4 +1,4 @@
-let start;
+let start,options,menu;
 let bird, birdAnimation;
 let START = 0, PLAY = 1, END = 2;
 let gameState = START;
@@ -62,8 +62,11 @@ function draw() {
 function load() {
   alert("loading placeholder");
   start = createImg("./assets/start.png");
-  start.position(700,600);
+  start.position(700,500);
   start.mousePressed(startGame);
+  options = createImg("./assets/options.png");
+  options.position(700,600);
+  options.mousePressed(optionsMenu);
   // como adicionar fontes em textos :)
   // let title = createElement("h1","Flappy Stola");
   // title.position(700,400);
@@ -77,8 +80,7 @@ function startGame() {
     summonBullets();
   };
   gameState = PLAY;
-  start.remove();
-  title.remove();
+  removeMainMenu([true,true,true,false]);
 }
 
 function keyPressed() {
@@ -94,7 +96,9 @@ function jump(sprite,times,height,timeDifference) {
   gravity = 0;
   for (let i = 0; i < times; i++) {
     setTimeout(() => {
-      sprite.y -= height;
+      if(gameState === PLAY) {
+        sprite.y -= height;
+      }
     }, timeDifference*i);
   }
   gravity = oldGravity;
@@ -166,4 +170,24 @@ function fadeImg(img,inOrOut,speed,timeFade,timeAlive) {
       }
     }, timeAlive);
   }
+}
+
+function removeMainMenu(removeOptions) {
+  if(removeOptions[0]){start.remove();}
+  if(removeOptions[1]){options.remove();}
+  if(removeOptions[2]){title.remove();}
+  if(removeOptions[3]){menu.remove();}
+}
+
+function optionsMenu() {
+  removeMainMenu([true,true,false,false]);
+  title.position(300,50);
+  menu = createImg("./assets/menu.png");
+  menu.position(700,600);
+  menu.mousePressed(backToMenu);
+}
+
+function backToMenu() {
+  removeMainMenu([false,false,true,true]);
+  load();
 }
