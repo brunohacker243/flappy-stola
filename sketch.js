@@ -14,6 +14,7 @@ let clicktoofast;
 let bg;
 let pewSfx,explosionSfx;
 let pipeDestroyer,pDImg;
+let n0,n1,n2,n3,n4,n5,n6,n7,n8,n9,numbers = [],score = 0, allNs = {n0,n1,n2,n3,n4,n5,n6,n7,n8,n9};;
 
 /*
   use
@@ -42,6 +43,16 @@ function preload() {
   pewSfx = loadSound("./assets/pew.mp3");
   explosionSfx = loadSound("./assets/explosion.mp3");
   pDImg = loadImage("./assets/pipedestroyer.png");
+  n0 = loadImage("./assets/numbers/0.png");
+  n1 = loadImage("./assets/numbers/1.png");
+  n2 = loadImage("./assets/numbers/2.png");
+  n3 = loadImage("./assets/numbers/3.png");
+  n4 = loadImage("./assets/numbers/4.png");
+  n5 = loadImage("./assets/numbers/5.png");
+  n6 = loadImage("./assets/numbers/6.png");
+  n7 = loadImage("./assets/numbers/7.png");
+  n8 = loadImage("./assets/numbers/8.png");
+  n9 = loadImage("./assets/numbers/9.png");
 }
 
 function setup() {
@@ -83,6 +94,8 @@ function draw() {
     }
     pipeDestroyer.x = bird.x + 20;
     pipeDestroyer.y = bird.y + 20;
+    
+    showScore(score,allNs);
   }
   drawSprites();
 }
@@ -193,6 +206,9 @@ function gameOver() {
   pipeDestroyer.velocityY = 15;
   setTimeout(() => {
     die.play();
+    menu = createImg("./assets/menu.png");
+    menu.position(700,700);
+    menu.mousePressed(reset);
   }, 500);
 }
 
@@ -252,5 +268,35 @@ function backToMenu() {
 function reset() {
   bird.x = 200;
   bird.y = 400;
-  //add reset function
+  bird.velocityY = 0;
+  pipeDestroyer.velocityY = 0;
+  pipeDestroyer.x = bird.x + 20;
+  pipeDestroyer.y = bird.y + 20;
+  for (let j = 0; j < 100; j++) {
+    for (let i = 0; i < pipes.length; i++) {
+      pipes[i].remove();
+      pipes.splice(i,1);
+    }
+    for (let i = 0; i < bullets.length; i++) {
+      bullets[i].remove();
+      bullets.splice(i,1);
+    }
+  }
+  gameState = START;
+  load();
+  menu.remove();
+}
+
+function showScore(score,allNs) {
+  let scoreString = score.toString();
+  let scoreWorking = [];
+  let ns;
+  scoreWorking = Array.from(scoreString);
+  for (let i = 0; i < scoreWorking.length; i++) {
+    let n;
+    n = createSprite(800,400,10,10);
+    n.addImage(allNs[scoreWorking[i]]);
+    ns.push(n);
+  }
+  
 }
