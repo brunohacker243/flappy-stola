@@ -5,13 +5,15 @@ let START = 0, PLAY = 1, END = 2;
 let gameState = START;
 let gravity = 10;
 let jumpHeight = 5;
-let pipes = [];
+let pipes = [],pipeImg;
 let title;
 let bullets = [];
 let canShoot = true;
 let spamAmount = 0;
 let clicktoofast;
 let bg;
+let pewSfx,explosionSfx;
+let pipeDestroyer;
 
 /*
   use
@@ -35,7 +37,8 @@ function preload() {
   point = loadSound("./assets/sfx_point.mp3");
   swoosh = loadSound("./assets/sfx_swooshing.mp3");
   wing = loadSound("./assets/sfx_wing.mp3");
-  bg = loadImage("./assets/bg.png")
+  bg = loadImage("./assets/bg.png");
+  pipeImg = loadImage("./assets/pipe.png");
 }
 
 function setup() {
@@ -134,6 +137,7 @@ function summonPipes() {
       let pipe = createSprite(1600,i*50,70,50);
       pipe.shapeColor = "lime";
       pipe.lifetime = 1600;
+      pipe.addImage(pipeImg);
       pipes.push(pipe);
       delete pipe;
     }
