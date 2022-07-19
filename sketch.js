@@ -28,7 +28,7 @@ function setup() {
   bird.addAnimation("bird",birdAnimation);
   bird.scale = 3;
   clicktoofast = createImg("./assets/clicktoofast.png");
-  clicktoofast.position(700,700);
+  clicktoofast.position(700,600);
   clicktoofast.style("opacity",0);
   load();
 }
@@ -185,6 +185,8 @@ function optionsMenu() {
   menu = createImg("./assets/menu.png");
   menu.position(700,600);
   menu.mousePressed(backToMenu);
+  // alert("coming soon");
+  // backToMenu();
 }
 
 function backToMenu() {
