@@ -1,3 +1,4 @@
+let theme;
 let start,options,menu,pleasewait;
 let bird, birdAnimation;
 let START = 0, PLAY = 1, END = 2;
