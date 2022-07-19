@@ -39,6 +39,8 @@ function preload() {
   wing = loadSound("./assets/sfx_wing.mp3");
   bg = loadImage("./assets/bg.png");
   pipeImg = loadImage("./assets/pipe.png");
+  pewSfx = loadSound("./assets/pew.mp3");
+  explosionSfx = loadSound("./assets/explosion.mp3");
 }
 
 function setup() {
@@ -68,6 +70,7 @@ function draw() {
           bullets[j].remove();
           pipes.splice(i,1);
           bullets.splice(j,1);
+          explosionSfx.play();
         }
       }
     }
@@ -156,11 +159,12 @@ function summonBullets() {
       canShoot = false;
       spamAmount = 0;
       let bullet = createSprite(bird.x,bird.y,20,10);
-      bullet.shapeColor = "white";
+      bullet.shapeColor = "red";
       bullet.lifetime = 1600;
       bullet.velocityX = 10;
       bullets.push(bullet);
       delete bullet;
+      pewSfx.play();
       setTimeout(() => {
         canShoot = true;
       }, 250)
@@ -178,7 +182,9 @@ function gameOver() {
     bullets[i].velocityX = 0;
   }
   gameState = END;
-  alert("die placeholder");
+  hit.play();
+  bird.velocityY = 10;
+  reset();
 }
 
 function fadeImg(img,inOrOut,speed,timeFade,timeAlive) {
@@ -232,4 +238,10 @@ function optionsMenu() {
 function backToMenu() {
   removeMainMenu([false,false,true,true]);
   load();
+}
+
+function reset() {
+  bird.x = 200;
+  bird.y = 400;
+  //add reset function
 }
