@@ -13,7 +13,7 @@ let spamAmount = 0;
 let clicktoofast;
 let bg;
 let pewSfx,explosionSfx;
-let pipeDestroyer;
+let pipeDestroyer,pDImg;
 
 /*
   use
@@ -41,6 +41,7 @@ function preload() {
   pipeImg = loadImage("./assets/pipe.png");
   pewSfx = loadSound("./assets/pew.mp3");
   explosionSfx = loadSound("./assets/explosion.mp3");
+  pDImg = loadImage("./assets/pipedestroyer.png");
 }
 
 function setup() {
@@ -48,6 +49,9 @@ function setup() {
   bird = createSprite(200, 400, 50, 50);
   bird.addAnimation("bird",birdAnimation);
   bird.scale = 3;
+  pipeDestroyer = createSprite(bird.x + 20,bird.y + 20,10,10);
+  pipeDestroyer.addImage(pDImg);
+  pipeDestroyer.scale = 3;
   clicktoofast = createImg("./assets/clicktoofast.png");
   clicktoofast.position(700,600);
   clicktoofast.style("opacity",0);
@@ -77,6 +81,8 @@ function draw() {
     if(bird.y >= 800 || bird.y <= 0) {
       gameOver();
     }
+    pipeDestroyer.x = bird.x + 20;
+    pipeDestroyer.y = bird.y + 20;
   }
   drawSprites();
 }
@@ -158,7 +164,7 @@ function summonBullets() {
     if(canShoot === true) {
       canShoot = false;
       spamAmount = 0;
-      let bullet = createSprite(bird.x,bird.y,20,10);
+      let bullet = createSprite(bird.x + 20,bird.y + 20,20,10);
       bullet.shapeColor = "red";
       bullet.lifetime = 1600;
       bullet.velocityX = 10;
@@ -184,7 +190,10 @@ function gameOver() {
   gameState = END;
   hit.play();
   bird.velocityY = 10;
-  reset();
+  pipeDestroyer.velocityY = 15;
+  setTimeout(() => {
+    die.play();
+  }, 500);
 }
 
 function fadeImg(img,inOrOut,speed,timeFade,timeAlive) {
@@ -229,7 +238,7 @@ function optionsMenu() {
   removeMainMenu([true,true,false,false]);
   title.position(300,50);
   menu = createImg("./assets/menu.png");
-  menu.position(700,600);
+  menu.position(700,700);
   menu.mousePressed(backToMenu);
   // alert("coming soon");
   // backToMenu();
