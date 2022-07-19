@@ -14,7 +14,7 @@ let clicktoofast;
 let bg;
 let pewSfx,explosionSfx;
 let pipeDestroyer,pDImg;
-let n0,n1,n2,n3,n4,n5,n6,n7,n8,n9,numbers = [],score = 0, allNs = {n0,n1,n2,n3,n4,n5,n6,n7,n8,n9};;
+let n0,n1,n2,n3,n4,n5,n6,n7,n8,n9,numbers = [],score = 0;
 
 /*
   use
@@ -95,7 +95,7 @@ function draw() {
     pipeDestroyer.x = bird.x + 20;
     pipeDestroyer.y = bird.y + 20;
     
-    showScore(score,allNs);
+    showScore(score,n0,n1,n2,n3,n4,n5,n6,n7,n8,n9);
   }
   drawSprites();
 }
@@ -287,16 +287,49 @@ function reset() {
   menu.remove();
 }
 
-function showScore(score,allNs) {
-  let scoreString = score.toString();
-  let scoreWorking = [];
-  let ns;
-  scoreWorking = Array.from(scoreString);
-  for (let i = 0; i < scoreWorking.length; i++) {
-    let n;
-    n = createSprite(800,400,10,10);
-    n.addImage(allNs[scoreWorking[i]]);
+function showScore(score,n0,n1,n2,n3,n4,n5,n6,n7,n8,n9) {
+  let text = score.toString();
+  let n;
+  let ns = [];
+  for (let i = 0; i < text.length; i++) {
+    n = createSprite(i*100,400);
+    switch (text[i]) {
+      case "0":
+        n.addImage(n0);
+        break;
+      case "1":
+        n.addImage(n1);
+        break;
+      case "2":
+        n.addImage(n2);
+        break;
+      case "3":
+        n.addImage(n3);
+        break;
+      case "4":
+        n.addImage(n4);
+        break;
+      case "5":
+        n.addImage(n5);
+        break;
+      case "6":
+        n.addImage(n6);
+        break;
+      case "7":
+        n.addImage(n7);
+        break;
+      case "8":
+        n.addImage(n8);
+        break;
+      case "9":
+        n.addImage(n9);
+        break;
+      default:
+        console.error("undefined");
+        break;
+    }
+    n.scale = 10;
     ns.push(n);
+    n.remove();
   }
-  
 }
