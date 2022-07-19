@@ -1,4 +1,4 @@
-let theme;
+let theme,die,hit,point,swoosh,wing;
 let start,options,menu,pleasewait;
 let bird, birdAnimation;
 let START = 0, PLAY = 1, END = 2;
@@ -11,6 +11,7 @@ let bullets = [];
 let canShoot = true;
 let spamAmount = 0;
 let clicktoofast;
+let bg;
 
 /*
   use
@@ -28,6 +29,13 @@ let clicktoofast;
 
 function preload() {
   birdAnimation = loadAnimation("./assets/bird1.png","./assets/bird2.png","./assets/bird3.png","./assets/bird4.png");
+  theme = loadSound("./assets/theme.mp3");
+  die = loadSound("./assets/sfx_die.mp3");
+  hit = loadSound("./assets/sfx_hit.mp3");
+  point = loadSound("./assets/sfx_point.mp3");
+  swoosh = loadSound("./assets/sfx_swooshing.mp3");
+  wing = loadSound("./assets/sfx_wing.mp3");
+  bg = loadImage("./assets/bg.png")
 }
 
 function setup() {
@@ -42,7 +50,7 @@ function setup() {
 }
 
 function draw() {
-  background("cyan");
+  background(bg);
   if(gameState === PLAY) {
     bird.y += gravity;
     summonPipes();
@@ -68,6 +76,7 @@ function draw() {
 }
 
 function load() {
+  swoosh.play();
   pleasewait = createImg("./assets/pleaseWait.png");
   pleasewait.position(700,100);
   start = createImg("./assets/start.png");
@@ -92,6 +101,7 @@ function startGame() {
   };
   gameState = PLAY;
   removeMainMenu([true,true,true,false]);
+  swoosh.play();
 }
 
 function keyPressed() {
@@ -112,6 +122,7 @@ function jump(sprite,times,height,timeDifference) {
       }
     }, timeDifference*i);
   }
+  wing.play();
   gravity = oldGravity;
 }
 
