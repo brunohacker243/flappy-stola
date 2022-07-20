@@ -14,7 +14,7 @@ let clicktoofast;
 let bg;
 let pewSfx,explosionSfx;
 let pipeDestroyer,pDImg;
-let n0,n1,n2,n3,n4,n5,n6,n7,n8,n9,numbers = [],score = 0;
+let score = 0,scoreText;
 
 /*
   use
@@ -43,16 +43,6 @@ function preload() {
   pewSfx = loadSound("./assets/pew.mp3");
   explosionSfx = loadSound("./assets/explosion.mp3");
   pDImg = loadImage("./assets/pipedestroyer.png");
-  n0 = loadImage("./assets/numbers/0.png");
-  n1 = loadImage("./assets/numbers/1.png");
-  n2 = loadImage("./assets/numbers/2.png");
-  n3 = loadImage("./assets/numbers/3.png");
-  n4 = loadImage("./assets/numbers/4.png");
-  n5 = loadImage("./assets/numbers/5.png");
-  n6 = loadImage("./assets/numbers/6.png");
-  n7 = loadImage("./assets/numbers/7.png");
-  n8 = loadImage("./assets/numbers/8.png");
-  n9 = loadImage("./assets/numbers/9.png");
 }
 
 function setup() {
@@ -72,6 +62,12 @@ function setup() {
 function draw() {
   background(bg);
   if(gameState === PLAY) {
+    score += 1;
+    scoreText.remove();
+    let scoreShow = score.toString();
+    scoreText = createElement("h1",scoreShow);
+    scoreText.position(775-scoreShow.length*12.5,60);
+    scoreText.class("FlappyStolaScore");
     bird.y += gravity;
     summonPipes();
     for (let i = 0; i < pipes.length; i++) {
@@ -94,8 +90,8 @@ function draw() {
     }
     pipeDestroyer.x = bird.x + 20;
     pipeDestroyer.y = bird.y + 20;
-    
-    showScore(score,n0,n1,n2,n3,n4,n5,n6,n7,n8,n9);
+  } else {
+    scoreText.remove();
   }
   drawSprites();
 }
@@ -110,14 +106,15 @@ function load() {
   options = createImg("./assets/options.png");
   options.position(700,600);
   options.mousePressed(optionsMenu);
-  // como adicionar fontes em textos :)
-  // let title = createElement("h1","Flappy Stola");
-  // title.position(700,400);
-  // title.class("FlappyStolaTitle");
   title = createImg("./assets/flappystola.png");
   title.position(300,200);
   fadeImg(pleasewait,"out",1,10,10);
   pleasewait.remove();
+  //como adicionar fontes em textos :)
+  let scoreShow = score.toString();
+  scoreText = createElement("h1",scoreShow);
+  scoreText.position(775,60);
+  scoreText.class("FlappyStolaScore");
 }
 
 function startGame() {
@@ -283,53 +280,8 @@ function reset() {
     }
   }
   gameState = START;
+  score = 0;
   load();
   menu.remove();
-}
-
-function showScore(score,n0,n1,n2,n3,n4,n5,n6,n7,n8,n9) {
-  let text = score.toString();
-  let n;
-  let ns = [];
-  for (let i = 0; i < text.length; i++) {
-    n = createSprite(i*100,400);
-    switch (text[i]) {
-      case "0":
-        n.addImage(n0);
-        break;
-      case "1":
-        n.addImage(n1);
-        break;
-      case "2":
-        n.addImage(n2);
-        break;
-      case "3":
-        n.addImage(n3);
-        break;
-      case "4":
-        n.addImage(n4);
-        break;
-      case "5":
-        n.addImage(n5);
-        break;
-      case "6":
-        n.addImage(n6);
-        break;
-      case "7":
-        n.addImage(n7);
-        break;
-      case "8":
-        n.addImage(n8);
-        break;
-      case "9":
-        n.addImage(n9);
-        break;
-      default:
-        console.error("undefined");
-        break;
-    }
-    n.scale = 10;
-    ns.push(n);
-    n.remove();
-  }
+  scoreText.remove();
 }

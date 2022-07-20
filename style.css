@@ -6,12 +6,18 @@ canvas {
   display: block;
 }
 
-/* como adicionar fontes em textos :)
+/* como adicionar fontes em textos :) */
    @font-face {
     font-family: FlappyTitle;
     src: url(./assets/titleFont.ttf);
   }
   
-  .FlappyStolaTitle {
+  .FlappyStolaScore {
     font-family: FlappyTitle;
-  } */
+    font-size: 100px;
+    color: white;
+    background-color: black;
+    padding-left: 7px;
+    padding-top: 6px;
+    text-align: start;
+  }
