@@ -116,7 +116,7 @@ function load() {
   //como adicionar fontes em textos :)
   let scoreShow = score.toString();
   scoreText = createElement("h1",scoreShow);
-  scoreText.position(775,60);
+  scoreText.position(775-scoreShow.length*100,60);
   scoreText.class("FlappyStolaScore");
 }
 
@@ -186,7 +186,7 @@ function summonBullets() {
       pewSfx.play();
       setTimeout(() => {
         canShoot = true;
-      }, 250)
+      }, 250);
     } else {
       spamAmount += 1;
       if(spamAmount >= 2) {
@@ -252,14 +252,24 @@ function removeMainMenu(removeOptions) {
   if(removeOptions[5]){codes.remove();}
 }
 
+function codesMenu() {
+  alert("coming soon");
+  removeMainMenu([false,false,true,true,true,true]);
+  load();
+}
+
 function optionsMenu() {
-  removeMainMenu([true,true,false,false,true,true]);
+  removeMainMenu([true,true,false,false,true,false]);
   title.position(300,50);
   menu = createImg("./assets/menu.png");
   menu.position(700,700);
-  menu.mousePressed(backToMenu);
-  alert("coming soon");
-  // backToMenu();
+  menu.mousePressed(()=>{
+    removeMainMenu([false,false,true,true,true,true]);
+    load();
+  });
+  codes = createImg("./assets/codes.png");
+  codes.position(700,300);
+  codes.mousePressed(codesMenu);
 }
 
 function upgradesMenu() {
@@ -267,14 +277,11 @@ function upgradesMenu() {
   title.position(300,50);
   menu = createImg("./assets/menu.png");
   menu.position(700,700);
-  menu.mousePressed(backToMenu);
+  menu.mousePressed(()=>{
+    removeMainMenu([false,false,true,true,true,false]);
+    load();
+  });
   alert("coming soon");
-  // backToMenu();
-}
-
-function backToMenu() {
-  removeMainMenu([false,false,true,true,true,false]);
-  load();
 }
 
 function reset() {
