@@ -1,5 +1,5 @@
 let theme,die,hit,point,swoosh,wing;
-let start,options,menu,pleasewait;
+let start,options,menu,pleasewait,upgrades,codes;
 let bird, birdAnimation;
 let START = 0, PLAY = 1, END = 2;
 let gameState = START;
@@ -108,6 +108,9 @@ function load() {
   options.mousePressed(optionsMenu);
   title = createImg("./assets/flappystola.png");
   title.position(300,200);
+  upgrades = createImg("./assets/upgrades.png");
+  upgrades.position(675,700);
+  upgrades.mousePressed(upgradesMenu);
   fadeImg(pleasewait,"out",1,10,10);
   pleasewait.remove();
   //como adicionar fontes em textos :)
@@ -122,7 +125,7 @@ function startGame() {
     summonBullets();
   };
   gameState = PLAY;
-  removeMainMenu([true,true,true,false]);
+  removeMainMenu([true,true,true,false,true,false]);
   swoosh.play();
 }
 
@@ -245,20 +248,32 @@ function removeMainMenu(removeOptions) {
   if(removeOptions[1]){options.remove();}
   if(removeOptions[2]){title.remove();}
   if(removeOptions[3]){menu.remove();}
+  if(removeOptions[4]){upgrades.remove();}
+  if(removeOptions[5]){codes.remove();}
 }
 
 function optionsMenu() {
-  removeMainMenu([true,true,false,false]);
+  removeMainMenu([true,true,false,false,true,true]);
   title.position(300,50);
   menu = createImg("./assets/menu.png");
   menu.position(700,700);
   menu.mousePressed(backToMenu);
-  // alert("coming soon");
+  alert("coming soon");
+  // backToMenu();
+}
+
+function upgradesMenu() {
+  removeMainMenu([true,true,false,false,true,false]);
+  title.position(300,50);
+  menu = createImg("./assets/menu.png");
+  menu.position(700,700);
+  menu.mousePressed(backToMenu);
+  alert("coming soon");
   // backToMenu();
 }
 
 function backToMenu() {
-  removeMainMenu([false,false,true,true]);
+  removeMainMenu([false,false,true,true,true,false]);
   load();
 }
 
